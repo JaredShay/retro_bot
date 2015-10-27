@@ -14,7 +14,7 @@ class ResponseFormatter
     if items.empty?
       "There are no #{category} items"
     else
-    "*#{category} items:*\n\t- #{items.join("\n\t- ")}"
+    "*#{category.to_s.capitalize}s:*\n\t- #{items.join("\n\t- ")}"
     end
   end
 
