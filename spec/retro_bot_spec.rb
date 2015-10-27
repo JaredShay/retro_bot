@@ -46,6 +46,17 @@ describe 'RetroBot' do
         )
       )
 
+      # Send a request to list all items
+      post_request(text: 'retro all')
+
+      response = JSON.parse(last_response.body)
+
+      expect(response['text'].include?('positive retro item')).to eql(true)
+      expect(response['text'].include?('another item')).to eql(true)
+      expect(response['text'].include?('negative retro item')).to eql(true)
+      expect(response['text'].include?('change retro item')).to eql(true)
+      expect(response['text'].include?('question retro item')).to eql(true)
+
       # Send a request to delete all stored items
       post_request(text: 'retro delete')
 

@@ -3,6 +3,7 @@ class ResponseFormatter
     "*Usage:*" +
     "\n\t- retro <positive|negative|change|question>: _add a retro item_" +
     "\n\t- retro <positives|negatives|changes|questions>: _list retro items_" +
+    "\n\t- retro all: _list all retro items_" +
     "\n\t- retro delete: _delete all retro items_"
   end
 
@@ -18,8 +19,20 @@ class ResponseFormatter
     end
   end
 
-  def self.all_items(items:)
-    response = "*All items deleted*\n"
+  def self.list_all_items(items:)
+    if items.empty?
+      'There are no retro items'
+    else
+      all_items(items)
+    end
+  end
+
+  def self.delete_all_items(items:)
+    "*All items deleted*\n" + all_items(items)
+  end
+
+  def self.all_items(items)
+    response = ""
 
     [:positive, :negative, :question, :change].each do |category|
       if !items[category].empty?

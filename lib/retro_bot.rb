@@ -32,8 +32,10 @@ post '/' do
                  items:    store_wrapper.get_items,
                  category: request.category
                )
+             when :all
+               ResponseFormatter.list_all_items(items: store_wrapper.all_items)
              when :delete
-               ResponseFormatter.all_items(items: store_wrapper.all_items).tap do
+               ResponseFormatter.delete_all_items(items: store_wrapper.all_items).tap do
                  store_wrapper.delete_all_items
                end
              end

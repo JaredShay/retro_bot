@@ -1,7 +1,8 @@
 class RequestParser
-  WRITE_REGEX  = /\Aretro\s+(positive|negative|question|change)\s+.+/
-  READ_REGEX   = /\Aretro\s+(positives|negatives|questions|changes)\s*/
-  DELETE_REGEX = /\Aretro\s+delete\s*/
+  WRITE_REGEX    = /\Aretro\s+(positive|negative|question|change)\s+.+/
+  READ_REGEX     = /\Aretro\s+(positives|negatives|questions|changes)\s*/
+  LIST_ALL_REGEX = /\Aretro\s+all\s*/
+  DELETE_REGEX   = /\Aretro\s+delete\s*/
 
   def self.parse(params)
     new(params)
@@ -20,9 +21,10 @@ class RequestParser
 
   def type
     @type ||= case @text
-              when WRITE_REGEX  then :write
-              when READ_REGEX   then :read
-              when DELETE_REGEX then :delete
+              when WRITE_REGEX    then :write
+              when READ_REGEX     then :read
+              when DELETE_REGEX   then :delete
+              when LIST_ALL_REGEX then :all
               else                   :help
               end
   end
