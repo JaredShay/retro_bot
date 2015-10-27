@@ -1,28 +1,42 @@
 require 'sinatra'
 require 'json'
+require 'redis'
 
-def format_response_text(retro_item, user_name, type)
-  "_#{user_name} added a #{type} item_ - #{retro_item}"
-end
+require_relative './request_authenticator'
+require_relative './request_parser'
+require_relative './response_formatter'
+require_relative './store_wrapper'
 
-def authenticated_request?
-  params.fetch('token') == ENV['SLACK_TOKEN'].to_s
-end
-
-def text_begins_with_keyword_and_type?
-  params.fetch('text').match(/\Aretro\s+(positive|negative|question|change)\s+.+/)
-end
+store = Redis.new
 
 post '/' do
-  return nil unless authenticated_request?
-  return nil unless text_begins_with_keyword_and_type?
+  return nil unless RequestAuthenticator.authenticate(params.fetch('token'))
 
-  text_tokens = params.fetch('text').split
-  type        = text_tokens[1]
-  retro_item  = text_tokens[2..-1].join(' ')
-  user_name   = params.fetch('user_name')
+  request       = RequestParser.parse(params)
+  store_wrapper = StoreWrapper.new(params: params, request: request, store: store)
 
-  {
-    text: format_response_text(retro_item, user_name, type)
-  }.to_json
+  return nil unless request.valid?
+
+  response = case request.type
+             when :help
+               ResponseFormatter.help_text
+             when :write
+               store_wrapper.add_request
+               ResponseFormatter.write_confirmation_text(
+                 user:     request.user,
+                 category: request.category,
+                 item:     request.item
+               )
+             when :read
+               ResponseFormatter.read_items(
+                 items:    store_wrapper.get_items,
+                 category: request.category
+               )
+             when :delete
+               ResponseFormatter.all_items(items: store_wrapper.all_items).tap do
+                 store_wrapper.delete_all_items
+               end
+             end
+
+  { text: response }.to_json
 end
