@@ -1,3 +1,8 @@
+# The StoreWrapper takes a params hash, store, and a RequestParser instance.
+# It is responsible for reading, writing, and deleting into a store and
+# ensuring any caller doesn't need to be concerned with scoping. For any
+# request it has all the information it needs to retrieve or store the correct
+# information.
 class StoreWrapper
   def initialize(params:, store:, request:)
     @team_id    = params.fetch('team_id')

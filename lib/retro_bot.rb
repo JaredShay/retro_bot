@@ -7,6 +7,20 @@ require_relative './request_parser'
 require_relative './response_formatter'
 require_relative './store_wrapper'
 
+# RetroBot is a simple bot to record retro items.
+#
+# It responds to a single request and has the following required params:
+#
+#   token: a secret string used to verify a request.
+#   team_id: used in conjunction with the 'channel_id' to form a storage key.
+#   channel_id: used in conjunction with the 'team_id' to form a storage key.
+#   text: the body of a request.
+#   user_name: the user sending the request.
+#
+# For every request it first validates it is from a trusted source and that it
+# is valid, then it parses the provided params to determine what type of request
+# it is receiving and responds appropriately.
+
 store = Redis.new(url: ENV['REDISTOGO_URL'])
 
 post '/' do

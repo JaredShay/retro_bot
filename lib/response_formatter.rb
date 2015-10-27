@@ -1,3 +1,4 @@
+# The ResponseFormatter is responsibile for formatting all output
 class ResponseFormatter
   def self.help_text
     "*Usage:*" +
