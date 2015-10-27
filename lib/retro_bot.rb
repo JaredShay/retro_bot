@@ -7,7 +7,7 @@ require_relative './request_parser'
 require_relative './response_formatter'
 require_relative './store_wrapper'
 
-store = Redis.new
+store = Redis.new(url: ENV['REDISTOGO_URL'])
 
 post '/' do
   return nil unless RequestAuthenticator.authenticate(params.fetch('token'))
