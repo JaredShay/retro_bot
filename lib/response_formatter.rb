@@ -13,19 +13,11 @@ class ResponseFormatter
   end
 
   def self.read_items(items:, category:)
-    if items.empty?
-      "There are no #{category} items"
-    else
-    "*#{category.to_s.capitalize}s:*\n\t- #{items.join("\n\t- ")}"
-    end
+    items.empty? ? "There are no #{category} items" : items_for(items, category)
   end
 
   def self.list_all_items(items:)
-    if items.empty?
-      'There are no retro items'
-    else
-      all_items(items)
-    end
+    items.empty? ? 'There are no retro items' : all_items(items)
   end
 
   def self.delete_all_items(items:)
@@ -45,5 +37,9 @@ class ResponseFormatter
     end
 
     response
+  end
+
+  def self.items_for(items, category)
+    "*#{category.to_s.capitalize}s:*\n\t- #{items.join("\n\t- ")}"
   end
 end
