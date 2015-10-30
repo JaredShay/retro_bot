@@ -14,6 +14,19 @@ RSpec.configure do |config|
   config.color = true
 end
 
-def post_request(token: 'test', user_name: 'test', text: 'test', team_id: '123', channel_id: '456')
-  post '/', token: token, user_name: user_name, text: text, team_id: team_id, channel_id: channel_id
+def post_request(
+  token:      'test',
+  user_name:  'test',
+  text:       'test',
+  team_id:    '123',
+  channel_id: '456'
+)
+  post(
+    '/',
+    token:      token,
+    user_name:  user_name,
+    text:       text,
+    team_id:    team_id,
+    channel_id: channel_id
+  )
 end
