@@ -14,11 +14,13 @@ class ResponseFormatter
   end
 
   def self.read_items(items:, category:)
-    items.empty? ? "There are no #{category} items" : items_for(items, category)
+    items.empty? ? "There are no #{category}s" : items_for(items, category)
   end
 
   def self.list_all_items(items:)
-    items.empty? ? 'There are no retro items' : all_items(items)
+    return 'There are no retro items' if items.all? { |_, v| v.empty? }
+
+    all_items(items)
   end
 
   def self.delete_all_items(items:)

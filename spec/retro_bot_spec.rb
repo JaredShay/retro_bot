@@ -68,12 +68,19 @@ describe 'RetroBot' do
       expect(response['text'].include?('change retro item')).to eql(true)
       expect(response['text'].include?('question retro item')).to eql(true)
 
-      # Ensure no items are returned
+      # Ensure no items are returned for a single category
       post_request(text: 'retro positives')
 
       response = JSON.parse(last_response.body)
 
-      expect(!response['text'].include?('positive retro item')).to eql(true)
+      expect(response['text']).to eql('There are no positives')
+
+      # Ensure no items are returned for a single category
+      post_request(text: 'retro all')
+
+      response = JSON.parse(last_response.body)
+
+      expect(response['text']).to eql('There are no retro items')
     end
   end
 end
