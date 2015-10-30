@@ -5,6 +5,7 @@ class ResponseFormatter
     "\n\t- retro <positive|negative|change|question>: _add a retro item_" +
     "\n\t- retro <positives|negatives|changes|questions>: _list retro items_" +
     "\n\t- retro all: _list all retro items_" +
+    "\n\t- retro help: _display help text_" +
     "\n\t- retro delete: _delete all retro items_"
   end
 
