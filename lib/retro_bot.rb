@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'json'
-require 'redis'
+ENV['RACK_ENV'] == 'test' ? require('fakeredis') : require('redis')
 
 require_relative './request_authenticator'
 require_relative './request_parser'

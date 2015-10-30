@@ -1,9 +1,8 @@
 require 'rack/test'
 require 'rspec'
 
-require_relative '../lib/retro_bot.rb'
-
 ENV['RACK_ENV'] = 'test'
+require_relative '../lib/retro_bot.rb'
 
 module RSpecMixin
   include Rack::Test::Methods
