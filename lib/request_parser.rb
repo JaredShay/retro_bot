@@ -13,10 +13,10 @@
 #
 #   Item - The text a user intends to record.
 class RequestParser
-  WRITE_REGEX    = /\Aretro\s+(positive|negative|question|change)\s+.+/
-  READ_REGEX     = /\Aretro\s+(positives|negatives|questions|changes)\s*/
-  LIST_ALL_REGEX = /\Aretro\s+all\s*/
-  DELETE_REGEX   = /\Aretro\s+delete\s*/
+  WRITE_REGEX    = /\Aretro\s+(positive|negative|question|change)\s+.+\Z/
+  READ_REGEX     = /\Aretro\s+(positive|negative|question|change)s\s*\Z/
+  LIST_ALL_REGEX = /\Aretro\s+all\s*\Z/
+  DELETE_REGEX   = /\Aretro\s+delete\s*\Z/
 
   def self.parse(params)
     new(params)
