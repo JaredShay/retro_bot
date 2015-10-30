@@ -30,7 +30,7 @@ class RequestParser
   end
 
   def valid?
-    !!@text.match(/\Aretro/)
+    !!@text.match(/\Aretro\b.*\Z/)
   end
 
   def type
