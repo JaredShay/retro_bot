@@ -2,11 +2,11 @@
 class ResponseFormatter
   def self.help_text
     "*Usage:*" +
-    "\n\t- retro <positive|negative|change|question>: _add a retro item_" +
-    "\n\t- retro <positives|negatives|changes|questions>: _list retro items_" +
-    "\n\t- retro all: _list all retro items_" +
+    "\n\t- retro <positive|negative|change|question>: _add a items_" +
+    "\n\t- retro <positives|negatives|changes|questions>: _list items_" +
+    "\n\t- retro all: _list all items_" +
     "\n\t- retro help: _display help text_" +
-    "\n\t- retro delete: _delete all retro items_"
+    "\n\t- retro delete: _delete all items_"
   end
 
   def self.write_confirmation_text(user:, category:, item:)

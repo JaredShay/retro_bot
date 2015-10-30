@@ -1,13 +1,14 @@
 # RetroBot
 
-Simple bot that remembers retro items for your team.
+Simple slack bot that remembers retro items for your team.
 
 ## Commands
 ```
-retro <positive|negative|change|question> # add items
+retro <positive|negative|change|question>     # add items
 retro <positives|negatives|changes|questions> # list items
-retro all # list all items
-retro delete # delete all items
+retro all                                     # list all items
+retro help                                    # display help text
+retro delete                                  # delete all items
 ```
 
 ## Getting Started
