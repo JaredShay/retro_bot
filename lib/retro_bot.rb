@@ -27,7 +27,9 @@ post '/' do
   return nil unless RequestAuthenticator.authenticate(params.fetch('token'))
 
   request       = RequestParser.parse(params)
-  store_wrapper = StoreWrapper.new(params: params, request: request, store: store)
+  store_wrapper = StoreWrapper.new(
+                    params: params, request: request, store: store
+                  )
 
   return nil unless request.valid?
 
@@ -49,9 +51,9 @@ post '/' do
              when :all
                ResponseFormatter.list_all_items(items: store_wrapper.all_items)
              when :delete
-               ResponseFormatter.delete_all_items(items: store_wrapper.all_items).tap do
-                 store_wrapper.delete_all_items
-               end
+               ResponseFormatter
+                .delete_all_items(items: store_wrapper.all_items)
+                .tap { store_wrapper.delete_all_items }
              end
 
   { text: response }.to_json

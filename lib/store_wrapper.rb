@@ -12,7 +12,9 @@ class StoreWrapper
   end
 
   def add_request
-    @store.sadd("#{@team_id}:#{@channel_id}:#{@request.category}", @request.item)
+    @store.sadd(
+      "#{@team_id}:#{@channel_id}:#{@request.category}", @request.item
+    )
   end
 
   def get_items
@@ -20,13 +22,11 @@ class StoreWrapper
   end
 
   def all_items
-    items = Hash.new([])
-
-    [:positive, :negative, :question, :change].each do |category|
-      items[category] = @store.smembers("#{@team_id}:#{@channel_id}:#{category}")
+    Hash.new([]).tap do |h|
+      [:positive, :negative, :question, :change].each do |c|
+        h[c] = @store.smembers("#{@team_id}:#{@channel_id}:#{c}")
+      end
     end
-
-    items
   end
 
   def delete_all_items
